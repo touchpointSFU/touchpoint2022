@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
 import { useMobileBreakpoint } from "../../hooks/useBreakpoint";
 import GetTicketsButton from "../Button/GetTicketsButton";
@@ -19,6 +19,14 @@ const NavLink = ({
   currentIndex,
   onLinkHover,
   onClick,
+}: {
+  children: React.ReactNode;
+  href: string;
+  isActive: boolean;
+  navItemIndex: number;
+  currentIndex: number;
+  onLinkHover: () => void;
+  onClick: () => void;
 }) => {
   const motionDiretion = currentIndex > navItemIndex ? "+" : "-";
 
@@ -70,7 +78,9 @@ const Nav = ({ children, isLoaded }: Props) => {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   // the dispalying section
   // const [isHovering, setIsHovering] = useState(false);
-  const [activeSectionIndex, setActiveSectionIndex] = useState(null);
+  const [activeSectionIndex, setActiveSectionIndex] = useState<number | null>(
+    null
+  );
 
   const router = useRouter();
   useEffect(() => {
