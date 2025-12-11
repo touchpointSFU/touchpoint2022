@@ -17,27 +17,27 @@
   --yInt--huge: -640 * var(--slope--huge) + 100;
   --clamp-tiny: clamp(
     20px,
-    calc(var(--slope--tiny) * 100vw + var(--yInt--tiny)),
+    calc((var(--slope--tiny) * 100 + var(--yInt--tiny)) * 1px),
     24px
   );
   --clamp-small: clamp(
     20px,
-    calc(var(--slope--small) * 100vw + var(--yInt--small)),
+    calc((var(--slope--small) * 100 + var(--yInt--small)) * 1px),
     35px
   );
   --clamp-medium: clamp(
     24px,
-    calc(var(--slope--medium) * 100vw + var(--yInt--medium)),
+    calc(((var(--slope--medium) * 100 + var(--yInt--medium)) * 1px)),
     60px
   );
   --clamp-big: clamp(
     30px,
-    calc(var(--slope--big) * 100vw + var(--yInt--big)),
+    calc((var(--slope--big) * 100 + var(--yInt--big)) * 1px),
     100px
   );
   --clamp-huge: clamp(
     100px,
-    calc(var(--slope--huge) * 100vw + var(--yInt--huge)),
+    calc((var(--slope--huge) * 100px + var(--yInt--huge)) * 1px),
     348px
   );
   --document-top: 2rem;
@@ -55,7 +55,7 @@
   --color-foreground: var(--foreground);
   --color-accent-red: var(--accent-red);
   --font-sans: var(--font-lausanne);
-  --font-serif: var(--font-kuenstler);
+  --font-script: var(--font-kuenstler);
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
@@ -73,9 +73,9 @@
   --text-big: var(--clamp-big);
   --text-big--letter-spacing: -0.01em;
   --text-big--line-height: 1.35em;
-  --text-huge: var(--clamp-huge);
-  --text-huge--letter-spacing: 0em;
-  --text-huge--line-height: 1.4em;
+  --text-huge-script: var(--clamp-huge);
+  --text-huge-script--letter-spacing: 0em;
+  --text-huge-script--line-height: 1.4em;
   --text-fluid-medium: 3.1vw;
   --text-fluid-medium--letter-spacing: -0.05em;
   --text-fluid-medium--line-height: 1em;
