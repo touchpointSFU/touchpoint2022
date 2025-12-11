@@ -49,10 +49,10 @@ export function LandingEffect({ children }: { children: React.ReactNode }) {
     gl: WebGLRenderingContext,
     delta: number
   ) => {
-    // if (shouldReduceMotion) {
-    //   console.log("reduce motion enabled");
-    //   return;
-    // }
+    if (shouldReduceMotion) {
+      // console.log("reduce motion enabled");
+      return;
+    }
     const noiseXVel = -(mousePos.current.x / canvas.width - 0.5) * 0.05;
     const noiseYVel = (mousePos.current.y / canvas.height - 0.5) * 0.05;
     noiseOffset.current.y += delta * 0.001 + clamp(noiseYVel, -0.7, 0.4);

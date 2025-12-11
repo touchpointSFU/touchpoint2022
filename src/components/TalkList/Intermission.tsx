@@ -6,8 +6,7 @@ interface Props {}
 export const Intermission = (props: Props) => {
   const scrollAnimation = useAnimation();
 
-  const lastElmRef =
-    useRef<HTMLSpanElement>() as MutableRefObject<HTMLSpanElement>;
+  const lastElmRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (typeof lastElmRef.current === "undefined") {

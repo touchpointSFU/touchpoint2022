@@ -14,20 +14,29 @@ type Props = {
 };
 
 function AutoResizeCanvas({ onRender, onInit, onResize }: Props) {
-  const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>;
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvasSize, setCanvasSize] = useState({ width: 300, height: 300 });
-  const context = useRef() as MutableRefObject<CanvasRenderingContext2D>;
+  const context = useRef<CanvasRenderingContext2D>(null);
   const [hasInit, setHasInit] = useState(false);
 
   // context and loop
   useEffect(() => {
     // setup canvas
+    if (!canvasRef.current) {
+      console.log("no canvas");
+      return;
+    }
     context.current = canvasRef.current.getContext(
       "2d"
     ) as CanvasRenderingContext2D;
 
     async function init() {
       // init
+      console.log("init");
+      if (!canvasRef.current || !context.current) {
+        console.log("no canvas or context");
+        return;
+      }
       onInit && (await onInit(canvasRef.current, context.current));
       setHasInit(true);
 
@@ -35,8 +44,10 @@ function AutoResizeCanvas({ onRender, onInit, onResize }: Props) {
       function updateFrame(currentFrameTime: number) {
         const delta = (currentFrameTime - previousFrameTime) / 1000;
         previousFrameTime = currentFrameTime;
-
-        onRender && onRender(canvasRef.current, context.current, delta);
+        canvasRef.current &&
+          context.current &&
+          onRender &&
+          onRender(canvasRef.current, context.current, delta);
         requestAnimationFrame(updateFrame);
       }
       requestAnimationFrame(updateFrame);

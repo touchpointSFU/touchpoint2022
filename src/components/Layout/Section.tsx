@@ -15,7 +15,7 @@ const Section = ({
   separatorOnly,
   noSeparator,
 }: Props) => {
-  const sectionRef = useRef() as MutableRefObject<HTMLElement>;
+  const sectionRef = useRef<HTMLElement>(null);
 
   if (noStyling)
     return (

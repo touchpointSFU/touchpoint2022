@@ -11,12 +11,13 @@ interface Props {
 }
 
 export default function StretchyType({ children }: Props): ReactElement {
-  const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const containerRef = useRef<HTMLDivElement>(null);
   const [heightScale, setHeightScale] = useState(1);
 
   useEffect(() => {
     function handleResize() {
       // handle resize
+      if (!containerRef.current) return;
       const measuredHeight = containerRef.current.clientHeight + 10;
       setHeightScale(window.innerHeight / measuredHeight);
     }

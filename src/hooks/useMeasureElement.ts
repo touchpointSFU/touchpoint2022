@@ -16,7 +16,7 @@ const useMeasureElement = <T extends HTMLElement>(
   dependencies = []
 ): [ElementMeasurement, React.MutableRefObject<T>] => {
   const [offset, setOffset] = useState<ElementMeasurement>();
-  const nodeRef = useRef<T>();
+  const nodeRef = useRef<T>(null);
 
   // funciton for saving the value to node
   const computeClientRect = () => {

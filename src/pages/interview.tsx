@@ -10,7 +10,7 @@ import ContentGroupLabel from "../components/Layout/ContentGroupLabel";
 import Section from "../components/Layout/Section";
 
 const Interview: NextPage = () => {
-  const companies = {
+  const companies: { [key: string]: string } = {
     "All Purpose": "https://www.allpurpose.io/",
     "Engine Digital": "https://enginedigital.com/",
     Invoke: "https://invokedigital.co/",

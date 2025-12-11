@@ -12,7 +12,7 @@ interface Props {
 import { m3 } from "./m3";
 
 export const EffectOverlay = ({ children }: Props) => {
-  const canvasRef = useRef() as React.MutableRefObject<HTMLCanvasElement>;
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const mousePos = useRef({ x: 0, y: 0 });
 
   const pixelRatio = React.useMemo(() => {
@@ -25,6 +25,7 @@ export const EffectOverlay = ({ children }: Props) => {
   useEffect(() => {
     // setup the canvas here
     const canvas = canvasRef.current;
+    if (!canvas) return;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -46,7 +47,7 @@ export const EffectOverlay = ({ children }: Props) => {
     }
 
     function render(time: number) {
-      twgl.resizeCanvasToDisplaySize(gl.canvas);
+      twgl.resizeCanvasToDisplaySize(gl.canvas as HTMLCanvasElement);
       gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
       const uniforms = {

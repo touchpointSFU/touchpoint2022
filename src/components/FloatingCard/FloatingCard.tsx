@@ -17,10 +17,10 @@ const PermissionText = {
 };
 
 function FloatingCard({}: Props) {
-  const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
-  const worldRef = useRef() as MutableRefObject<b2World>;
-  const worldObjectsRef = useRef() as MutableRefObject<any>;
-  const isTouch = useRef(false) as MutableRefObject<Boolean>;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const worldRef = useRef<b2World>(null);
+  const worldObjectsRef = useRef<any>(null);
+  const isTouch = useRef<Boolean>(false);
 
   const [permissionText, setPermissionText] = useState(
     PermissionText.ASK_PERMISSION
@@ -64,6 +64,9 @@ function FloatingCard({}: Props) {
   };
 
   const screenToWorldPos = (wordSizeInfo: WorldSizeInfo, { x = 0, y = 0 }) => {
+    if (!containerRef.current) {
+      return { x: 0, y: 0 };
+    }
     const bounds = containerRef.current.getBoundingClientRect();
     const xRatio = (x - bounds.left + window.scrollX) / bounds.width;
     const yRatio = (y - bounds.top + window.scrollY) / bounds.height;
@@ -101,7 +104,9 @@ function FloatingCard({}: Props) {
       worldSizeInfo,
       mouseInputPos.current
     );
-
+    if (!worldRef.current || !worldObjectsRef.current) {
+      return;
+    }
     updatePhysicsSimulation({
       canvas: canvas,
       context: context,
@@ -122,7 +127,7 @@ function FloatingCard({}: Props) {
 
   // add accelerometer
   useEffect(() => {
-    function handleOrientation(event) {
+    function handleOrientation(event: DeviceOrientationEvent) {
       // alert("orientation change");
 
       var beta = event.beta; // In degree in the range [-180,180)
@@ -130,16 +135,17 @@ function FloatingCard({}: Props) {
 
       // Because we don't want to have the device upside down
       // We constrain the x value to the range [-90,90]
-      if (beta > 90) {
+      if (beta != null && beta > 90) {
         beta = 90;
       }
-      if (beta < -90) {
+      if (beta != null && beta < -90) {
         beta = -90;
       }
 
       const maxGravityX = 200;
       const maxGravityY = 200;
 
+      if (!worldRef.current || !gamma || !beta) return;
       worldRef.current.SetGravity({
         x: (gamma / 90) * maxGravityX,
         y: -(beta / 90) * maxGravityY,
@@ -151,7 +157,7 @@ function FloatingCard({}: Props) {
       if (typeof DeviceOrientationEvent.requestPermission === "function") {
         //@ts-ignore
         DeviceOrientationEvent.requestPermission()
-          .then((permissionState) => {
+          .then((permissionState: PermissionState) => {
             setPermissionText(PermissionText.NONE);
 
             if (permissionState === "granted") {
@@ -165,7 +171,7 @@ function FloatingCard({}: Props) {
               setPermissionText(PermissionText.ASK_AGAIN);
             }
           })
-          .catch((err) => {
+          .catch((err: any) => {
             alert("yes");
           });
       } else {
