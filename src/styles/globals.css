@@ -7,13 +7,19 @@
   --accent-red: #f02828;
   --slope--tiny: -4 / 640;
   --slope--small: -15 / 640;
+  --slope--smallLH: -11 / 640;
   --slope--medium: -36 / 640;
+  --slope--mediumLH: -30 / 640;
   --slope--big: -70 / 640;
+  --slope--bigLH: -61.5 / 640;
   --slope--huge: -248 / 640;
   --yInt--tiny: -640 * var(--slope--tiny) + 20;
   --yInt--small: -640 * var(--slope--small) + 20;
+  --yInt--smallLH: -640 * var(--slope--smallLH) + 24;
   --yInt--medium: -640 * var(--slope--medium) + 24;
+  --yInt--mediumLH: -640 * var(--slope--mediumLH) + 24;
   --yInt--big: -640 * var(--slope--big) + 30;
+  --yInt--bigLH: -640 * var(--slope--big) + 28.5;
   --yInt--huge: -640 * var(--slope--huge) + 100;
   --clamp-tiny: clamp(
     20px,
@@ -25,15 +31,30 @@
     calc((var(--slope--small) * 100 + var(--yInt--small)) * 1px),
     35px
   );
+  --clamp-small--line-height: clamp(
+    24px,
+    calc((var(--slope--smallLH) * 100 + var(--yInt--smallLH)) * 1px),
+    35px
+  );
   --clamp-medium: clamp(
     24px,
     calc(((var(--slope--medium) * 100 + var(--yInt--medium)) * 1px)),
     60px
   );
+  --clamp-medium--line-height: clamp(
+    24px,
+    calc(((var(--slope--medium) * 100 + var(--yInt--medium)) * 1px)),
+    54px
+  );
   --clamp-big: clamp(
     30px,
     calc((var(--slope--big) * 100 + var(--yInt--big)) * 1px),
     100px
+  );
+  --clamp-big--line-height: clamp(
+    28.5px,
+    calc((var(--slope--bigLH) * 100 + var(--yInt--bigLH)) * 1px),
+    90px
   );
   --clamp-huge: clamp(
     100px,
@@ -66,16 +87,16 @@
   --text-tiny--line-height: 1.2em;
   --text-small: var(--clamp-small);
   --text-small--letter-spacing: -0.03em;
-  --text-small--line-height: 1.25em;
+  --text-small--line-height: var(--clamp-small--line-height);
   --text-medium: var(--clamp-medium);
-  --text-medium--letter-spacing: -0.02em;
-  --text-medium--line-height: 1.3em;
+  --text-medium--letter-spacing: -0.05em;
+  --text-medium--line-height: var(--clamp-medium--line-height);
   --text-big: var(--clamp-big);
-  --text-big--letter-spacing: -0.01em;
-  --text-big--line-height: 1.35em;
+  --text-big--letter-spacing: -0.05em;
+  --text-big--line-height: var(--clamp-big--line-height);
   --text-huge-script: var(--clamp-huge);
-  --text-huge-script--letter-spacing: 0em;
-  --text-huge-script--line-height: 1.4em;
+  /* --text-huge-script--letter-spacing: 0em; */
+  /* --text-huge-script--line-height: 1.4em; */
   --text-fluid-medium: 3.1vw;
   --text-fluid-medium--letter-spacing: -0.05em;
   --text-fluid-medium--line-height: 1em;
