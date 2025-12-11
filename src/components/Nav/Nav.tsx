@@ -23,27 +23,27 @@ const NavLink = ({
   const motionDiretion = currentIndex > navItemIndex ? "+" : "-";
 
   return (
-    <Link href={href}>
-      <a
-        className="text-tiny no-underline mr-4 sm:mr-8 text-black flex flex-row items-center"
-        onMouseEnter={() => onLinkHover()}
-        onClick={onClick}
-      >
-        <div className="rounded-full w-[.5em] h-[.5em] border border-black mr-[.3em] overflow-hidden">
-          <motion.div
-            className="w-full h-full bg-black rounded-full"
-            initial={{ x: "-100%" }}
-            animate={{
-              x: isActive ? 0 : motionDiretion + "100%",
-            }}
-            transition={{
-              ease: AnimationConfig.EASING,
-              duration: 0.2,
-            }}
-          ></motion.div>
-        </div>
-        {children}
-      </a>
+    <Link
+      href={href}
+      className="text-tiny no-underline mr-4 sm:mr-8 text-black flex flex-row items-center"
+      onMouseEnter={() => onLinkHover()}
+      onClick={onClick}
+    >
+      <div className="rounded-full w-[.5em] h-[.5em] border border-black mr-[.3em] overflow-hidden">
+        <motion.div
+          className="w-full h-full bg-black rounded-full"
+          initial={{ x: "-100%" }}
+          animate={{
+            x: isActive ? 0 : motionDiretion + "100%",
+          }}
+          transition={{
+            ease: AnimationConfig.EASING,
+            duration: 0.2,
+          }}
+        ></motion.div>
+      </div>
+      {children}
+      {/* </a> */}
     </Link>
   );
 };

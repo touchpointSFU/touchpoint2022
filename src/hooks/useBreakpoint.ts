@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../tailwind.config.js";
+// import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.config.js";
+// import { resolveTheme } from "tailwind-resolver";
 
 // USAGE
 // const isOverBreakpoint = useBreakpoint(breakpointInPixel)
 // const isMobile = useMobileBreakpoint();
 
-const fullConfig = resolveConfig(tailwindConfig);
+// const theme = await resolveTheme({ input: "./src/styles.css" });
+// console.log(theme);
+
+// const fullConfig = resolveConfig(tailwindConfig);
 
 export function useBreakpoint(breakpointSize: number) {
   const [isOverBreakpoint, setIsOverBreakpoint] = useState(false);
@@ -37,13 +41,18 @@ export function useBreakpoint(breakpointSize: number) {
 
 // mobild shorthand for "useBreakpoint"
 export function useMobileBreakpoint() {
-  return useBreakpoint(parseInt(fullConfig.theme.screens.sm));
+  return useBreakpoint(breakpoints.sm);
 }
 
 export const breakpoints = {
-  sm: parseInt(fullConfig.theme.screens.sm),
-  md: parseInt(fullConfig.theme.screens.md),
-  lg: parseInt(fullConfig.theme.screens.lg),
-  xl: parseInt(fullConfig.theme.screens.xl),
-  "2xl": parseInt(fullConfig.theme.screens["2xl"]),
+  // sm: parseInt(fullConfig.theme.screens.sm),
+  // md: parseInt(fullConfig.theme.screens.md),
+  // lg: parseInt(fullConfig.theme.screens.lg),
+  // xl: parseInt(fullConfig.theme.screens.xl),
+  // "2xl": parseInt(fullConfig.theme.screens["2xl"]),
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  "2xl": 1536,
 };

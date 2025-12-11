@@ -1,0 +1,134 @@
+@import "tailwindcss";
+/* @import "./font.css"; */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent-red: #f02828;
+  --slope--tiny: -4 / 640;
+  --slope--small: -15 / 640;
+  --slope--medium: -36 / 640;
+  --slope--big: -70 / 640;
+  --slope--huge: -248 / 640;
+  --yInt--tiny: -640 * var(--slope--tiny) + 20;
+  --yInt--small: -640 * var(--slope--small) + 20;
+  --yInt--medium: -640 * var(--slope--medium) + 24;
+  --yInt--big: -640 * var(--slope--big) + 30;
+  --yInt--huge: -640 * var(--slope--huge) + 100;
+  --clamp-tiny: clamp(
+    20px,
+    calc(var(--slope--tiny) * 100vw + var(--yInt--tiny)),
+    24px
+  );
+  --clamp-small: clamp(
+    20px,
+    calc(var(--slope--small) * 100vw + var(--yInt--small)),
+    35px
+  );
+  --clamp-medium: clamp(
+    24px,
+    calc(var(--slope--medium) * 100vw + var(--yInt--medium)),
+    60px
+  );
+  --clamp-big: clamp(
+    30px,
+    calc(var(--slope--big) * 100vw + var(--yInt--big)),
+    100px
+  );
+  --clamp-huge: clamp(
+    100px,
+    calc(var(--slope--huge) * 100vw + var(--yInt--huge)),
+    348px
+  );
+  --document-top: 2rem;
+  --fluid-medium: 0.2em;
+  --fluid-small: 0.2em;
+  /* --size-sm: 640px;
+  --size-md: 768px;
+  --size-lg: 1024px;
+  --size-xl: 1280px;
+  --size-2xl: 1536px; */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent-red: var(--accent-red);
+  --font-sans: var(--font-lausanne);
+  --font-serif: var(--font-kuenstler);
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --text-tiny: var(--clamp-tiny);
+  --text-tiny--letter-spacing: -0.05em;
+  --text-tiny--line-height: 1.2em;
+  --text-small: var(--clamp-small);
+  --text-small--letter-spacing: -0.03em;
+  --text-small--line-height: 1.25em;
+  --text-medium: var(--clamp-medium);
+  --text-medium--letter-spacing: -0.02em;
+  --text-medium--line-height: 1.3em;
+  --text-big: var(--clamp-big);
+  --text-big--letter-spacing: -0.01em;
+  --text-big--line-height: 1.35em;
+  --text-huge: var(--clamp-huge);
+  --text-huge--letter-spacing: 0em;
+  --text-huge--line-height: 1.4em;
+  --text-fluid-medium: 3.1vw;
+  --text-fluid-medium--letter-spacing: -0.05em;
+  --text-fluid-medium--line-height: 1em;
+
+  --spacing-document-top: var(--document-top);
+  --spacing-fluid-medium: var(--fluid-medium);
+  --spacing-fluid-small: var(--fluid-small);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Lausanne", sans-serif;
+}
+
+::selection {
+  color: #fff;
+  background-color: black;
+}
+
+html {
+  /* scroll-behavior: smooth; */
+}
+
+a {
+  /* color: #f02828; */
+  text-decoration: underline;
+  text-underline-offset: 0.1em;
+  text-decoration-thickness: 0.02em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.curtains-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+span.avoidwrap {
+  display: inline-block;
+}

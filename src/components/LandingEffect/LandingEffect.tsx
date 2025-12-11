@@ -10,13 +10,14 @@ import CHECKER_VERT from "./CheckerEffectGL.vert";
 import AutoResizeCanvasWebgl from "../AutoResizeCanvas/AutoResizeCanvasWebgl";
 import { useReducedMotion } from "framer-motion";
 
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+const clamp = (num: number, min: number, max: number) =>
+  Math.min(Math.max(num, min), max);
 
 const CheckerContext = React.createContext(null);
 
 export const useCheckerContext = () => useContext(CheckerContext);
 
-export function LandingEffect({ children }) {
+export function LandingEffect({ children }: { children: React.ReactNode }) {
   const mousePos = useRef(new Vec2(0, 0));
   const noiseOffset = useRef({ x: 0, y: 0 });
   const checkerSize = useRef(10);
@@ -25,8 +26,8 @@ export function LandingEffect({ children }) {
   const shouldReduceMotion = useReducedMotion();
 
   // for webgl
-  const programInfoRef = useRef<twgl.ProgramInfo>();
-  const bufferInfoRef = useRef<twgl.BufferInfo>();
+  const programInfoRef = useRef<twgl.ProgramInfo>(null);
+  const bufferInfoRef = useRef<twgl.BufferInfo>(null);
 
   const init = async (canvas: HTMLCanvasElement, gl: WebGLRenderingContext) => {
     // init webgl
