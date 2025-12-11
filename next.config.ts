@@ -5,11 +5,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   turbopack: {
     rules: {
-      "*.vert": {
-        loaders: ["raw-loader"],
-        as: "*.js",
-      },
-      "*.frag": {
+      "*.{vert,frag,glsl,vs,fs}": {
         loaders: ["raw-loader"],
         as: "*.js",
       },

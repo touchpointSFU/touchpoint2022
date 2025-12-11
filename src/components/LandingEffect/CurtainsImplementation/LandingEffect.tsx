@@ -3,20 +3,26 @@ import { Vec2 } from "curtainsjs";
 import { Plane } from "react-curtains";
 import { screens } from "../../../data/screens";
 
-//@ts-ignore
 import MouseCheckerShaderFrag from "./CheckerEffect.frag";
-//@ts-ignore
+
 import MouseCheckerShaderVert from "./CheckerEffect.vert";
 
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+const clamp = (num: number, min: number, max: number) =>
+  Math.min(Math.max(num, min), max);
 
-const CheckerContext = React.createContext(null);
+type CheckerContextType = {
+  uniforms: any;
+  mousePos: any;
+  showGlobalCursor: any;
+};
+
+const CheckerContext = React.createContext<CheckerContextType | null>(null);
 
 export const useCheckerContext = () => useContext(CheckerContext);
 
-export function LandingEffect({ children }) {
+export function LandingEffect({ children }: { children: React.ReactNode }) {
   const mousePos = useRef(new Vec2(0, 0));
-  const planeMeasurementRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const planeMeasurementRef = useRef<HTMLDivElement>(null);
   const cursorSize = useRef(0);
   const targetCursorSize = useRef(0);
   const showGlobalCursor = useRef(true);
@@ -55,7 +61,17 @@ export function LandingEffect({ children }) {
   });
 
   // State update
-  const onRender = (plane) => {
+  const onRender = (plane: {
+    uniforms: {
+      time: any;
+      mouse: any;
+      cursorSize: any;
+      noiseOffset: any;
+      checkerSize: any;
+      resolution: any;
+    };
+    mouseToPlaneCoords: (arg0: Vec2) => any;
+  }) => {
     // update time value in the plane
     plane.uniforms.time.value++;
 
@@ -114,6 +130,9 @@ export function LandingEffect({ children }) {
   // capture the viewport size
   useEffect(() => {
     function measurePlaneResolution() {
+      if (!planeMeasurementRef.current) {
+        return { x: 0, y: 0 };
+      }
       const clientRect = planeMeasurementRef.current.getBoundingClientRect();
       return {
         x: clientRect.width,
@@ -141,7 +160,7 @@ export function LandingEffect({ children }) {
 
   // capture mouse position
   useEffect(() => {
-    function handleMouseMove(e) {
+    function handleMouseMove(e: MouseEvent) {
       mousePos.current.x = e.clientX;
       mousePos.current.y = e.clientY;
     }

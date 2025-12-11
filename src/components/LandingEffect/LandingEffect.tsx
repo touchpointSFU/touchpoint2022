@@ -35,6 +35,7 @@ export function LandingEffect({ children }: { children: React.ReactNode }) {
       CHECKER_VERT,
       CHECKER_FRAG,
     ]);
+    // console.log("program", program);
     programInfoRef.current = twgl.createProgramInfoFromProgram(gl, program);
 
     const arrays = {
@@ -48,8 +49,10 @@ export function LandingEffect({ children }: { children: React.ReactNode }) {
     gl: WebGLRenderingContext,
     delta: number
   ) => {
-    if (shouldReduceMotion) return;
-
+    // if (shouldReduceMotion) {
+    //   console.log("reduce motion enabled");
+    //   return;
+    // }
     const noiseXVel = -(mousePos.current.x / canvas.width - 0.5) * 0.05;
     const noiseYVel = (mousePos.current.y / canvas.height - 0.5) * 0.05;
     noiseOffset.current.y += delta * 0.001 + clamp(noiseYVel, -0.7, 0.4);
@@ -65,11 +68,15 @@ export function LandingEffect({ children }: { children: React.ReactNode }) {
     const programInfo = programInfoRef.current;
     const bufferInfo = bufferInfoRef.current;
 
-    if (!programInfo || !bufferInfo) return;
+    if (!programInfo || !bufferInfo) {
+      console.log("no programInfo or bufferInfo");
+      return;
+    }
     gl.useProgram(programInfo.program);
     twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
     twgl.setUniforms(programInfo, uniforms);
     twgl.drawBufferInfo(gl, bufferInfo);
+    console.log(gl);
   };
 
   const resize = (width: number, height: number) => {

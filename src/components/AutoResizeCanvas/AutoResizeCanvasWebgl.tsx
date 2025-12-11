@@ -14,14 +14,18 @@ type Props = {
 };
 
 function AutoResizeCanvasWebgl({ onRender, onInit, onResize }: Props) {
-  const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>;
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvasSize, setCanvasSize] = useState({ width: 300, height: 300 });
-  const gl = useRef() as MutableRefObject<WebGLRenderingContext>;
+  const gl = useRef<WebGLRenderingContext>(null);
   const [hasInit, setHasInit] = useState(false);
 
   // context and loop
   useEffect(() => {
     // setup canvas
+    if (!canvasRef.current) {
+      console.log("no canvas");
+      return;
+    }
     gl.current = canvasRef.current.getContext("webgl") as WebGLRenderingContext;
 
     const canvasRect = canvasRef.current.getBoundingClientRect();
@@ -34,11 +38,17 @@ function AutoResizeCanvasWebgl({ onRender, onInit, onResize }: Props) {
 
     async function init() {
       // init
+      console.log("init");
+      if (!canvasRef.current || !gl.current) {
+        console.log("no canvas or gl");
+        return;
+      }
       onInit && (await onInit(canvasRef.current, gl.current));
       setHasInit(true);
 
       let lastFrameTime = 0;
       function updateFrame(currentFrameTime: number) {
+        // console.log("updateFrame", currentFrameTime);
         const delta = currentFrameTime - lastFrameTime;
         lastFrameTime = currentFrameTime;
 
@@ -64,6 +74,7 @@ function AutoResizeCanvasWebgl({ onRender, onInit, onResize }: Props) {
 
     function handleResize() {
       // instead of window size, use the canvas size to drive the value
+      if (!canvasRef.current || !gl.current) return;
       const canvasRect = canvasRef.current.getBoundingClientRect();
       const width = canvasRect.width;
       const height = canvasRect.height;
