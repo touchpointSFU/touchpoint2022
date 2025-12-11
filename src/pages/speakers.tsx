@@ -19,18 +19,16 @@ const Speakers: NextPage = () => {
       <main>
         {/* <h1 className="mt-4 ml-8 text-small uppercase mb-64">Some title</h1> */}
         <TalkList>
-          {TalkInformation.map(
-            ({ time, graduation, role, name, title }, index) => {
-              return (
-                <React.Fragment key={index}>
-                  {index === intermissionIndex && <Intermission />}
-                  <TalkItem time={time} graduation={graduation} role={role}>
-                    {`${name} “${title}”`}
-                  </TalkItem>
-                </React.Fragment>
-              );
-            }
-          )}
+          {TalkInformation.map(({ time, graduation, role, name }, index) => {
+            return (
+              <React.Fragment key={index}>
+                {index === intermissionIndex && <Intermission />}
+                <TalkItem time={time} graduation={graduation} role={role}>
+                  {`${name}`}
+                </TalkItem>
+              </React.Fragment>
+            );
+          })}
         </TalkList>
       </main>
     </div>
