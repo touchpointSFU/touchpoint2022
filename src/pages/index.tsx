@@ -36,7 +36,8 @@ const Home: NextPage = () => {
           <TalkList>
             {TalkInformation.map(
               ({ time, graduation, role, name, company }, index) => {
-                if (time === "intermission") return <Intermission />;
+                if (time === "intermission")
+                  return <Intermission key={index} />;
 
                 return (
                   <TalkItem

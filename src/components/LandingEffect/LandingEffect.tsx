@@ -65,6 +65,7 @@ export function LandingEffect({ children }: { children: React.ReactNode }) {
     const programInfo = programInfoRef.current;
     const bufferInfo = bufferInfoRef.current;
 
+    if (!programInfo || !bufferInfo) return;
     gl.useProgram(programInfo.program);
     twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
     twgl.setUniforms(programInfo, uniforms);
@@ -77,14 +78,14 @@ export function LandingEffect({ children }: { children: React.ReactNode }) {
 
     checkerSize.current = checkSizeClamped;
 
-    mousePos.current = {
-      x: clamp(mousePos.current.x, 0, width),
-      y: clamp(mousePos.current.y, 0, height),
-    };
+    mousePos.current = new Vec2(
+      clamp(mousePos.current.x, 0, width),
+      clamp(mousePos.current.y, 0, height)
+    );
   };
 
   useEffect(() => {
-    function handleMouseMove(e) {
+    function handleMouseMove(e: MouseEvent) {
       mousePos.current.x = e.clientX;
       mousePos.current.y = e.clientY;
     }
