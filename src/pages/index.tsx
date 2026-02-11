@@ -62,14 +62,14 @@ const Home: NextPage = () => {
                     )}
                   </TalkItem>
                 );
-              }
+              },
             )}
           </TalkList>
         </Section>
 
         <Section noSeparator>
           <BigText>
-            <ExternalLink href="https://www.sfu.ca/idc/">
+            <ExternalLink href="https://2020.touchpointsfu.ca">
               2020 Site
             </ExternalLink>
           </BigText>
